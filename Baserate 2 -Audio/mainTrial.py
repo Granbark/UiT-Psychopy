@@ -118,9 +118,9 @@ def mainLoop(dict_values, window, audioFolder, audioDevice, excelNumber, output_
         if (config.answer_left) in keys:
             
             if correctAnswer == "Answeroption1":
-                output_file["E"+str(excelNumber)] = "Correct"
+                output_file["E"+str(excelNumber)] = "1"
             else:
-                output_file["E"+str(excelNumber)] = "Wrong"
+                output_file["E"+str(excelNumber)] = "0"
                 
             #output_file["E"+str(excelNumber)] = "Answeroption1"
             output_file["F"+str(excelNumber)] = startTime
@@ -128,9 +128,9 @@ def mainLoop(dict_values, window, audioFolder, audioDevice, excelNumber, output_
         elif (config.answer_right) in keys:
             
             if correctAnswer == "Answeroption2":
-                output_file["E"+str(excelNumber)] = "Correct"
+                output_file["E"+str(excelNumber)] = "1"
             else:
-                output_file["E"+str(excelNumber)] = "Wrong"
+                output_file["E"+str(excelNumber)] = "0"
             #output_file["E"+str(excelNumber)] = "Answeroption2"
             output_file["F"+str(excelNumber)] = startTime
             break
