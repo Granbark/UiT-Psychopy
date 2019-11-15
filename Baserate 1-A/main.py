@@ -7,7 +7,7 @@ dummyMode = True #True/False. True = No eyetracker, False = eyetracker
 class Experiment():
 
     def __init__(self):
-        self.userInfo = config.expInfo
+        self.userInfo = common.registerUser(config.useGUI) #Inital info-box with subjectNUM and INITALS
         self.baseRates = excelConfig.excelBaseRates()
         self.subjectExcel = excelConfig.excelNewSubject(self.userInfo)
         self.edfFile = eyeConfig.eyeConfigFile(self.userInfo)
@@ -30,7 +30,7 @@ class Experiment():
         eyeConfig.eyeRecording(self.eyeTracker, dummyMode)
     
     def saveData(self):
-        eyeConfig.eyeQuitRecording(self.eyeTracker, self.userInfo["SubjectNO"], self.edfFile + self.userInfo["SubjectNO"])
+        eyeConfig.eyeQuitRecording(self.eyeTracker, self.userInfo["SubjectNO"])
 
     def practiceTrial(self):
         practiceTrial.practicetrial(self.monitor, self.baseRates)
@@ -42,7 +42,6 @@ class Experiment():
 if __name__ == "__main__":
     task1 = Experiment() #create an experiment
 
-    task1.userInfo = common.registerUser(config.useGUI) #Inital info-box with subjectNUM and INITALS
     task1.monitorConfig()
     task1.eyeConfig() #set up eyetracker, with calibration, and open the datafile
 
@@ -60,6 +59,6 @@ if __name__ == "__main__":
                 task1.startRecording()
                 task1.Trial()
                 task1.saveData()
-                quit
+                quit()
             else:
                 continue

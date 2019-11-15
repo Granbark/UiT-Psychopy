@@ -71,7 +71,7 @@ def eyeConfigFile(expInfo):
 	
 	#Name for Eyedata
     dataFileName = expInfo['SubjectNO'] + '.EDF'
-
+    print(dataFileName)
     return dataFileName
 
 def eyeRecording(eyeTracker, dummyMode):
@@ -86,11 +86,11 @@ def eyeRecording(eyeTracker, dummyMode):
 
         eyeTracker.sendMessage("task_start")
 
-def eyeQuitRecording(eyeTracker, dataFileName, dataFolder):
+def eyeQuitRecording(eyeTracker, dataFileName):
     eyeTracker.setOfflineMode()
     eyeTracker.closeDataFile()
     pylink.pumpDelay(50)
 
-    eyeTracker.receiveDataFile(dataFileName, dataFolder + dataFileName)
+    eyeTracker.receiveDataFile(dataFileName, dataFileName + ".EDF")
     eyeTracker.close()
 

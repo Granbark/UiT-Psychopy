@@ -34,7 +34,7 @@ def registerUser(use_gui):
     else:
         config.expInfo['SubjectNO'] = input('Subject # (1-99): ') #raw_input()? Not working atm
         config.expInfo['SubjectInitials'] = input('Subject Initials (e.g., WZ): ') #raw_input()? Not working atm  
-    return dlg #return config.userInfo
+    return config.expInfo #return config.userInfo
 
 def fixationCross(size, randSelect, time_input, window): #can add a time here, so we can manually select a time for each fix_cross?
 

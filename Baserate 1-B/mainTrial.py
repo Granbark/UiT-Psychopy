@@ -29,7 +29,8 @@ def main_loop(dict_values, workbook_output, window, excel_number, tk):
     base_rate2 = dict_values["Baserate2"]
     answer_1 = dict_values["Answeroption1"]
     answer_2 = dict_values["Answeroption2"]
-    
+    correctAnswer = dict_values["Correct"]
+	
     time.sleep(2)
     
     tk.sendMessage('this_study_contains')
@@ -72,17 +73,26 @@ def main_loop(dict_values, workbook_output, window, excel_number, tk):
     timer.reset()
     startTime = timer.getTime()
     event.clearEvents() #if one accidentaly clicks a key before the selection process, it will not register
+	
     while (startTime < 4):
         keys = event.getKeys()
         if (config.answer_left) in keys:
             
-            workbook_output["E"+str(excel_number)] = "Answeroption1"
+            if correctAnswer == "Answeroption1":
+                workbook_output["E"+str(excel_number)] = "Correct"
+            else:
+                workbook_output["E"+str(excel_number)] = "Wrong"
+            #workbook_output["E"+str(excel_number)] = "Answeroption1"
             workbook_output["F"+str(excel_number)] = startTime
             break
         
         elif (config.answer_right) in keys:
             
-            workbook_output["E"+str(excel_number)] = "Answeroption2"
+            if correctAnswer == "Answeroption2":
+                workbook_output["E"+str(excel_number)] = "Correct"
+            else:
+                workbook_output["E"+str(excel_number)] = "Wrong"
+            #workbook_output["E"+str(excel_number)] = "Answeroption2"
             workbook_output["F"+str(excel_number)] = startTime
             break
 
@@ -182,7 +192,7 @@ def runTrial(workbook_input, window, dest_filename, tk):
             wb = load_workbook(filename = dest_filename)
             output_file = wb.active
 
-            trial_number = (int(list_dict[k]["Trial"])) + 1
+            trial_number = (int(list_dict[k]["Trial"]))
 
             output_file['C'+ str(excel_number)] = trial_number
             output_file['D'+ str(excel_number)] = list_dict[k]["Condition"]

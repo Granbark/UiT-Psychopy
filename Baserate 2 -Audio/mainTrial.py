@@ -41,6 +41,7 @@ def mainLoop(dict_values, window, audioFolder, audioDevice, excelNumber, output_
     attribute = dict_values["Attribute"]
     base_rate1 = dict_values["Baserate1"]
     base_rate2 = dict_values["Baserate2"]
+    correctAnswer = dict_values["Correct"]
 
     likely_sound, likely_fs = sf.read("is_this_person_more_likely_a.wav")
     attribute_sound = attribute + ".wav"
@@ -116,12 +117,21 @@ def mainLoop(dict_values, window, audioFolder, audioDevice, excelNumber, output_
         keys = event.getKeys()
         if (config.answer_left) in keys:
             
-            output_file["E"+str(excelNumber)] = "Answeroption1"
+            if correctAnswer == "Answeroption1":
+                output_file["E"+str(excelNumber)] = "Correct"
+            else:
+                output_file["E"+str(excelNumber)] = "Wrong"
+                
+            #output_file["E"+str(excelNumber)] = "Answeroption1"
             output_file["F"+str(excelNumber)] = startTime
             break
         elif (config.answer_right) in keys:
             
-            output_file["E"+str(excelNumber)] = "Answeroption2"
+            if correctAnswer == "Answeroption2":
+                output_file["E"+str(excelNumber)] = "Correct"
+            else:
+                output_file["E"+str(excelNumber)] = "Wrong"
+            #output_file["E"+str(excelNumber)] = "Answeroption2"
             output_file["F"+str(excelNumber)] = startTime
             break
 
@@ -151,9 +161,9 @@ def runTrial(baseRates, window, subjectExcel, eyeTracker, audioDevice):
         
     #This has to be adjusted for each individual excel file
     #Append excel numbers to seperate lists in python
-    for i in range(4, 26): list_N.append(i) 
-    for i in range(26, 70): list_C.append(i) 
-    for i in range(70, 136): list_I.append(i) 
+    for i in range(5, 27): list_N.append(i) 
+    for i in range(27, 67): list_C.append(i) 
+    for i in range(67, 137): list_I.append(i) 
      
     #main loop
     num = 0 #Checking if it goes through all trials
@@ -210,7 +220,7 @@ def runTrial(baseRates, window, subjectExcel, eyeTracker, audioDevice):
             wb = load_workbook(filename = subjectExcel)
             output_file = wb.active
 
-            trial_number = (int(list_dict[k]["Trial"])) + 1
+            trial_number = (int(list_dict[k]["Trial"]))
 
             output_file['C'+ str(excel_number)] = trial_number
             output_file['D'+ str(excel_number)] = list_dict[k]["Condition"]
